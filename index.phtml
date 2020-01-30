@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>  
+  <form action="index.php" method="POST">
+    <label for="selectJobs">Choose a job title :   </label>
+    <select name="jobs" id="selectJobs">
+      <?php foreach($jobTitle as $key => $value): ?>
+        <option value="<?= $value["jobTitle"]?>" ><?= $value["jobTitle"] ?></option>
+      <?php endforeach; ?>
+    </select>
+    <input type="submit" value="search"/>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Job title</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+            if(!empty($_POST)):
+              foreach($employees as $key => $value): 
+              if(in_array($searchResult, $value)): ?>
+                <tr>
+                  <?php foreach($value as  $employeeInfo):  ?>
+                    <td><?= $employeeInfo ?></td>    
+                  <?php endforeach; ?>
+                </tr>
+          <?php 
+                 
+                endif;
+              endforeach; ?>
+        <?php ?>
+      <?php elseif(empty($_POST)): ?>
+          <?php foreach($employees as $key => $value):?>
+            <tr>
+              <td><?=$value["firstName"]?></td>
+              <td><?= $value["lastName"] ?></td>
+              <td><?= $value["jobTitle"] ?></td>
+              <td><?=  $value["city"]?></td>
+            </tr>
+          <?php endforeach; ?>
+        
+      <?php endif; ?>
+    </tbody>  
+  </table>
+    </body>
+</html>
